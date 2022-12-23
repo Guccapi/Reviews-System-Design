@@ -1,12 +1,22 @@
 const csv = require('csv-parser');
 const fs = require('fs');
 const path = require('path');
+const { Pool } = require('pg');
 
-const reviewInfo = [];
+const db = new Pool({
+  host: 'localhost',
+  user: 'elizabeth',
+  pssword: 'Empireswillriseagain',
+  port: 5432,
+  database: 'GucciRR',
+  allowExitOnIdle: true,
+});
 
-fs.createReadStream(path.join(__dirname, '../CSVS/questions.csv'))
+const characteristicsReview = [];
+
+fs.createReadStream(path.join(__dirname, '../CSVS/reviews.csv'))
   .pipe(csv())
-  .on('data', (data) => reviewInfo.push(data))
+  .on('data', (data) => console.log(data))
   .on('end', () => {
-    console.log(reviewInfo);
+    console.log(characteristicsReview);
   });

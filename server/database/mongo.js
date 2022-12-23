@@ -33,44 +33,44 @@ const reviewInfoSchema = new Schema({
 });
 
 const metaDataSchema = new Schema({
-    ratings: {
-      1: Number,
-      2: Number,
-      3: Number,
-      4: Number,
-      5: Number,
+  ratings: {
+    1: Number,
+    2: Number,
+    3: Number,
+    4: Number,
+    5: Number,
+  },
+  recommended: {
+    true: Number,
+    false: Number,
+  },
+  characteristics: {
+    size: {
+      id: Number,
+      value: String,
     },
-    recommended: {
-      true: Number,
-      false: Number,
+    width: {
+      id: Number,
+      value: String,
     },
-    characteristics: {
-      size: {
-        id: Number,
-        value: String,
-      },
-      width: {
-        id: Number,
-        value: String,
-      },
-      comfort {
-        id: Number,
-        value: String,
-      },
-      quality: {
-        id: Number,
-        value: String,
-      },
-      length: {
-        id: Number,
-        value: String,
-      },
-      fit: {
-        id: Number,
-        value: String,
-      },
-    }
-  });
+    comfort: {
+      id: Number,
+      value: String,
+    },
+    quality: {
+      id: Number,
+      value: String,
+    },
+    length: {
+      id: Number,
+      value: String,
+    },
+    fit: {
+      id: Number,
+      value: String,
+    },
+  },
+});
 
 const productInfoSchema = new Schema({
   product_id: Number,

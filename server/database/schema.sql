@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS "Product Info";
+DROP TABLE IF EXISTS "productinfo" CASCADE;
 
-CREATE TABLE "Product Info" (
+CREATE TABLE "productinfo" (
 	"Product_id" serial NOT NULL,
 	"Review_id" int NOT NULL,
 	CONSTRAINT "Product Info_pk" PRIMARY KEY ("Product_id")
@@ -8,9 +8,9 @@ CREATE TABLE "Product Info" (
   OIDS=FALSE
 );
 
-DROP TABLE IF EXISTS "Reviews";
+DROP TABLE IF EXISTS "review" CASCADE;
 
-CREATE TABLE "Reviews" (
+CREATE TABLE "review" (
 	"review_id" serial NOT NULL,
 	"rating" serial NOT NULL,
 	"summary" serial NOT NULL,
@@ -23,14 +23,14 @@ CREATE TABLE "Reviews" (
 	"photos" jsonb NOT NULL,
 	"reported" BOOLEAN NOT NULL,
 	"product_id" int NOT NULL,
-	CONSTRAINT "Reviews_pk" PRIMARY KEY ("review_id")
+	CONSTRAINT "reviews_pk" PRIMARY KEY ("review_id")
 ) WITH (
   OIDS=FALSE
 );
 
-DROP TABLE IF EXISTS "Product Meta";
+DROP TABLE IF EXISTS "productmeta" CASCADE;
 
-CREATE TABLE "Product Meta" (
+CREATE TABLE "productmeta" (
 	"product_id" serial NOT NULL,
 	"ratings" jsonb NOT NULL,
 	"recommended" jsonb NOT NULL,
@@ -41,11 +41,11 @@ CREATE TABLE "Product Meta" (
 );
 
 
-ALTER TABLE "Product Info" ADD CONSTRAINT "Product Info_fk0" FOREIGN KEY ("Review_id") REFERENCES "Reviews"("review_id");
+ALTER TABLE "productinfo" ADD CONSTRAINT "productinfo_fk0" FOREIGN KEY ("Review_id") REFERENCES "review"("review_id");
 
-ALTER TABLE "Reviews" ADD CONSTRAINT "Reviews_fk0" FOREIGN KEY ("product_id") REFERENCES "Product Info"("Product_id");
+ALTER TABLE "review" ADD CONSTRAINT "review_fk0" FOREIGN KEY ("product_id") REFERENCES "productinfo"("Product_id");
 
-ALTER TABLE "Product Meta" ADD CONSTRAINT "Product Meta_fk0" FOREIGN KEY ("product_id") REFERENCES "Product Info"("Product_id");
+ALTER TABLE "productmeta" ADD CONSTRAINT "productmeta_fk0" FOREIGN KEY ("product_id") REFERENCES "productinfo"("Product_id");
 
 
 
