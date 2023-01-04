@@ -1,5 +1,5 @@
 const {
-  reviews: { getDBReviews },
+  reviews: { getDBReviews, getDBMetaData },
 } = require('../models');
 // reviewsRouter.get('/reviews', getReviews);
 
@@ -21,15 +21,15 @@ const getReviews = async (req, res) => {
   }
 };
 
-// const getMetaData = async (req, res) => {
-//   try {
-//     const metaData = await getDBMetaData();
-//     res.send(metaData);
-//   } catch (err) {
-//     console.error(err);
-//     res.send(err).status(400);
-//   }
-// };
+const getMetaData = async (req, res) => {
+  try {
+    const metaData = await getDBMetaData(req.query);
+    res.send(metaData);
+  } catch (err) {
+    console.error(err);
+    res.send(err).status(400);
+  }
+};
 
 // const addReview = async (req, res) => {
 //   try {
@@ -63,7 +63,7 @@ const getReviews = async (req, res) => {
 
 module.exports = {
   getReviews,
-  // getMetaData,
+  getMetaData,
   // addReview,
   // helpfulReview,
   // reportReview,

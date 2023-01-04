@@ -12,6 +12,19 @@ const getDBReviews = async ({ product_id, count, page }) => {
   }
 };
 
+const getDBMetaData = async ({ product_id }) => {
+  try {
+    const query = await db.query(
+      `SELECT * FROM characteristic WHERE product_id = ${product_id}`,
+    );
+    return Promise.resolve(query.sort((a, b) => b.helpfulness - a.helpfulness));
+  } catch (err) {
+    console.error(err);
+    return Promise.reject(err);
+  }
+};
+
 module.exports = {
   getDBReviews,
+  getDBMetaData,
 };
