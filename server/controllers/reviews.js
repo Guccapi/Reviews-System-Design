@@ -1,11 +1,6 @@
 const {
-  reviews: { getDBReviews, getDBMetaData },
+  reviews: { getDBReviews, getDBMetaData, postDBReview, putHelpfulReview, putReportReview },
 } = require('../models');
-// reviewsRouter.get('/reviews', getReviews);
-
-// reviewsRouter.get('/reviews/meta', getMetaData)
-
-// reviewsRouter.post('/reviews', addReview)
 
 // reviewsRouter.put('/reviews/:review_id/helpful', helpfulReview);
 
@@ -31,40 +26,42 @@ const getMetaData = async (req, res) => {
   }
 };
 
-// const addReview = async (req, res) => {
-//   try {
-//     await postDBReview(req.body);
-//     res.sendStatus(201);
-//   } catch (err) {
-//     console.error(err);
-//     res.sendStatus(400);
-//   }
-// };
+const addReview = async (req, res) => {
+  try {
+    console.log('Da Body: ', req.body);
+    await postDBReview(req.body);
+    res.sendStatus(201);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(400);
+  }
+};
 
-// const helpfulReview = async (req, res) => {
-//   try {
-//     await putHelpfulReview(req.body);
-//     res.sendStatus(204);
-//   } catch (err) {
-//     console.error(err);
-//     res.sendStatus(404);
-//   }
-// };
+const helpfulReview = async (req, res) => {
+  try {
+    const reviewId = req.params.review_id;
+    await putHelpfulReview(reviewId);
+    res.sendStatus(204);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(404);
+  }
+};
 
-// const reportReview = async (req, res) => {
-//   try {
-//     await putReportReview(req.body);
-//     res.sendStatus(204);
-//   } catch (err) {
-//     console.error(err);
-//     res.sendStatus(404);
-//   }
-// };
+const reportReview = async (req, res) => {
+  try {
+    await putReportReview(req.params.review_id);
+    res.sendStatus(204);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(404);
+  }
+};
 
 module.exports = {
   getReviews,
   getMetaData,
-  // addReview,
-  // helpfulReview,
-  // reportReview,
+  addReview,
+  helpfulReview,
+  reportReview,
 };
