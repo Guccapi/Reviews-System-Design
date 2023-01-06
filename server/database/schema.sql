@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS "review" CASCADE;
+-- DROP TABLE IF EXISTS "review" CASCADE;
 
 CREATE TABLE "review" (
 	"review_id" bigserial NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE "review" (
   OIDS=FALSE
 );
 
-DROP TABLE IF EXISTS "productmeta" CASCADE;
+-- DROP TABLE IF EXISTS "productmeta" CASCADE;
 
 CREATE TABLE "productmeta" (
 	"product_id" int NOT NULL,
@@ -42,8 +42,10 @@ CREATE TABLE "characteristic" (
   OIDS=FALSE
 );
 
-CREATE INDEX characteristic_id_index ON characteristic (id);
+-- CREATE INDEX characteristic_id_index ON characteristic (id);
 
-CREATE INDEX productmeta_id_index ON productmeta (product_id);
+-- CREATE INDEX productmeta_id_index ON productmeta (product_id);
 
-CREATE INDEX review_id_index ON review (review_id);
+-- CREATE INDEX review_id_index ON review (review_id);
+
+-- DROP INDEX IF EXISTS characteristic_id_index;
