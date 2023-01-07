@@ -1,7 +1,12 @@
+-- CREATE DATABASE guccirr;
+
 -- DROP TABLE IF EXISTS "review" CASCADE;
+-- DROP TABLE IF EXISTS "productmeta" CASCADE;
+-- DROP TABLE IF EXISTS "characteristic" CASCADE;
+-- DROP TABLE IF EXISTS "staging_table" CASCADE;
 
 CREATE TABLE "review" (
-	"review_id" bigserial NOT NULL,
+	"review_id" serial NOT NULL,
 	"product_id" int NOT NULL,
 	"rating" int,
 	"date" timestamptz NOT NULL,
@@ -18,10 +23,8 @@ CREATE TABLE "review" (
   OIDS=FALSE
 );
 
--- DROP TABLE IF EXISTS "productmeta" CASCADE;
-
 CREATE TABLE "productmeta" (
-	"product_id" int NOT NULL,
+	"product_id" serial NOT NULL,
 	"ratings" jsonb DEFAULT '{}',
 	"recommend" jsonb DEFAULT '{}',
 	"charcount" int NOT NULL DEFAULT 0,
@@ -30,22 +33,39 @@ CREATE TABLE "productmeta" (
   OIDS=FALSE
 );
 
--- DROP TABLE IF EXISTS "characteristic" CASCADE;
-
 CREATE TABLE "characteristic" (
-	"id" bigint NOT NULL,
+	"id" serial NOT NULL,
 	"characteristic_name" varchar(10) NOT NULL,
-	"product_id" bigint NOT NULL,
-	"value" bigint NOT NULL DEFAULT 0,
+	"product_id" int NOT NULL,
+	"value" int NOT NULL DEFAULT 0,
 	CONSTRAINT "characteristic_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
 );
 
--- CREATE INDEX characteristic_id_index ON characteristic (id);
+SELECT setval(pg_get_serial_sequence('review', 'review_id'), (SELECT MAX(review_id) FROM review)+1);
+SELECT setval(pg_get_serial_sequence('productmeta', 'product_id'), (SELECT MAX(product_id) FROM productmeta)+1);
+SELECT setval(pg_get_serial_sequence('characteristic', 'id'), (SELECT MAX(id) FROM characteristic)+1);
 
--- CREATE INDEX productmeta_id_index ON productmeta (product_id);
+CREATE INDEX product_id_index ON review (product_id);
 
--- CREATE INDEX review_id_index ON review (review_id);
+CREATE INDEX reported_index ON review (reported);
 
--- DROP INDEX IF EXISTS characteristic_id_index;
+CREATE INDEX product_id_index ON characteristic (product_id);
+
+CREATE TABLE "staging_table" (
+  id SERIAL PRIMARY KEY,
+  characteristic_id INT,
+  review_id INT,
+  value INT
+);
+
+-- COPY staging_table
+-- FROM '/home/moakbari/hackreactor/Projects/Reviews-System-Design/server/ETL/CSVS/characteristic_reviews.csv'
+-- DELIMITER ','
+-- CSV HEADER;
+
+-- UPDATE characteristic
+-- 	set value = st.value
+-- from staging_table st
+-- where st.characteristic_id = characteristic.id;

@@ -1,5 +1,11 @@
 const {
-  reviews: { getDBReviews, getDBMetaData, postDBReview, putHelpfulReview, putReportReview },
+  reviews: {
+    getDBReviews,
+    getDBMetaData,
+    postDBReview,
+    putHelpfulReview,
+    putReportReview,
+  },
 } = require('../models');
 
 // reviewsRouter.put('/reviews/:review_id/helpful', helpfulReview);
