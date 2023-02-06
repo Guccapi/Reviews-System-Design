@@ -5,11 +5,12 @@ const fs = require('fs');
 const path = require('path');
 const fns = require('date-fns');
 const pgp = require('pg-promise')({});
-// const db = require('../database/postgres');
+const { PG_USER, PG_DATABASE, PG_PASSWORD } = require('../../config');
+
 const cn = {
-  user: 'postgres',
-  password: 'BosphorusBaklava69',
-  database: 'guccirr',
+  user: PG_USER,
+  password: PG_DATABASE,
+  database: PG_PASSWORD,
 };
 
 const db = pgp(cn);
