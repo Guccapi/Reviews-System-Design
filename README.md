@@ -46,3 +46,24 @@ Ratings & Reviews: Matthew Sigler\
 [![Linkedin: LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/matthew-sigler-15859610a/)
 [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/siglerm)
 
+### Start the Application Locally
+
+1. Clone the repository locally.
+```
+git clone https://github.com/Guccapi/Reviews-System-Design.git
+```
+
+2. Install the required dependencies.
+```
+npm install
+```
+
+3. Create a copy of `example.config.js`, rename it to `config.js`, and add the required info for your database.
+
+4. Run the server
+```
+npm start
+```
+
+The application is now live locally at `http://localhost:8080/`.
+
